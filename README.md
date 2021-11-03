@@ -2,7 +2,7 @@
 
 This example uses Azure CLI for Azure Authentication. 
 
-1. az logon
+1. az login
 2. az account set --subscription "REPLACE ME"
     use the correct Azure Subscription id
 4. Set the terraform path in the $PATH
