@@ -3,6 +3,7 @@
 This example uses Azure CLI for Azure Authentication. 
 
 1. az login 
+
         i. Alternatively , we can Authenticate using the Service Prinipal as mentioned here - https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-service-principal
      
         ii. Or Using Azure MSI , as mentioned here  - https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-msi
