@@ -2,13 +2,13 @@ terraform {
   required_providers {
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.10"
+      version = "0.3.11"
     }
   }
 }
 
 provider "databricks" {
-  host = var.host
+  host = "https://adb-6470595692372502.2.azuredatabricks.net/?o=6470595692372502"
 }
 
 resource "databricks_group" "this" {

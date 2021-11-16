@@ -22,8 +22,9 @@ module "create_pat_token" {
 
 }
 
-module "create_user_groups" {
-  source = "./modules/Create_User_Groups"
-  host = module.create_db_workspace.databricks_host
 
+module "scim_AAD" {
+  source = "./modules/scim_AAD"
+  host = module.create_db_workspace.databricks_host
+  token = module.create_pat_token.databricks_token
 }
