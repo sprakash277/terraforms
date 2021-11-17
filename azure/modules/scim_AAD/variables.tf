@@ -14,16 +14,28 @@ description = "Map of AAD group names into object describing workspace & Databri
     allow_cluster_create = true
     allow_instance_pool_create = true
     admin = false  # if this group for Databricks admins
+    },
+     "Analysts" = {
+    workspace_access = true
+    allow_sql_analytics_access = true
+    allow_cluster_create = true
+    allow_instance_pool_create = true
+    admin = true  # if this group for Databricks admins
     }
   }
 }
 
 variable "host" {
   type = string
-  default = "Change Me"
+  default = "CHANGE ME"
 }
 
 variable "token" {
   type = string
-  default = "Change Me"
+  default = "CHANGE ME-3"
+}
+
+variable "tenant_id" {
+  type = string
+  default = "CHANGE ME"
 }

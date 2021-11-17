@@ -1,3 +1,4 @@
+
 terraform {
   required_providers {
     databricks = {
@@ -10,17 +11,6 @@ terraform {
     }
   }
 }
-
-provider "azuread" {
-}
-
-provider "databricks" {
-  #host = "https://adb-6470595692372502.2.azuredatabricks.net/?o=6470595692372502"
-  #token = "dapi2a8ab40ffe495f00846509ad02796636-3"
-  host = var.host
-  token = var.token
-}
-
 
 // read group members of given groups from AzureAD every time Terraform is started
 data "azuread_group" "this" {
@@ -65,13 +55,35 @@ resource "databricks_group_member" "this" {
         jsonencode({
           user: member_id,
           group: group_name
-        })]]))
+        })]]
+        ))  
   group_id = databricks_group.this[jsondecode(each.value).group].id
   member_id = databricks_user.this[jsondecode(each.value).user].id
 }
 
+
 // Provisioning of admins
 
+data "azuread_group" "admins" {
 
+  for_each = local.admin_groups
+  display_name = each.value
+  
+}
 
+data "azuread_user" "admins" {
+  for_each = toset(flatten([for g in data.azuread_group.this: g.members]))
+  object_id = each.value
+}
 
+data "databricks_group" "admins" {
+    display_name = "admins"
+}
+
+resource "databricks_group_member" "admins" {
+  for_each = toset(flatten(
+    [for group_name in local.admin_groups:
+      [for member_id in data.azuread_group.admins[group_name].members: member_id]]))
+  group_id = data.databricks_group.admins.id
+  member_id = databricks_user.this[each.value].id
+}
