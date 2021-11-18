@@ -19,13 +19,11 @@ terraform {
 provider "azurerm" {
   features {}
   subscription_id = var.subscription_id
-  #subscription_id = "3f2e4d32-8e8d-46d6-82bc-5bb8d962328b"
 }
 
 
  provider "azuread" {
    tenant_id = var.tenant_id
-  #tenant_id = "9f37a392-f0ae-4280-9796-f1864a10effc"
 }
 provider "databricks" {
 
