@@ -3,8 +3,14 @@
 This example uses Azure CLI for Azure Authentication. 
 
 
+
+export $GITHUB_TOKEN="CHANGE ME"
+export $AZURE_TENANT_ID="CHANGE ME"
+export $AZURE_SUBSCRIPTION_ID="CHANGE ME"
+
 export TF_VAR_tenant_id=$AZURE_TENANT_ID
 export TF_VAR_subscription_id=$AZURE_SUBSCRIPTION_ID
+export TF_VAR_github_token=$GITHUB_TOKEN
 
 
 

@@ -77,7 +77,10 @@ data "azuread_user" "admins" {
 }
 
 data "databricks_group" "admins" {
-    display_name = "admins"
+
+  # To add lazy Authentication, Add dependency to current user and ser the user_id in the parent module 
+  depends_on = [var.user_id]
+  display_name = "admins"
 }
 
 resource "databricks_group_member" "admins" {

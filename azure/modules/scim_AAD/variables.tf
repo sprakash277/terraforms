@@ -39,3 +39,7 @@ variable "tenant_id" {
   type = string
   default = "CHANGE ME"
 }
+
+variable "user_id" {
+  type = string
+}

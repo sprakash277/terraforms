@@ -14,6 +14,7 @@ provider "databricks" {
   host  = var.host
 }
 
+
 // create PAT token to provision entities within workspace
 resource "databricks_token" "pat" {
   provider = databricks.created_workspace
