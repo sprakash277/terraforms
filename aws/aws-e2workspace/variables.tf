@@ -8,7 +8,9 @@ variable "cross_account_role_arn" {}
 variable "aws_profile_for_Credentials" {}
 
 variable "tags" {
-  default = {}
+  default = {
+    Owner = "sumit.prakash@databricks.com"
+  }
 }
 
 variable "cidr_block" {
@@ -18,3 +20,6 @@ variable "cidr_block" {
 variable "region" {
 }
 
+variable "prefix" {
+  default = "cs-sumit1"
+}

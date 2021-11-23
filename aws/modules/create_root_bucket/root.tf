@@ -1,13 +1,42 @@
+terraform {
+  required_providers {
+    
+    databricks = {
+      source = "databrickslabs/databricks"
+      version = "0.3.11"
+    }
+  }
+}
+
+resource "random_string" "naming" {
+  special = false
+  upper   = false
+  length  = 6
+}
+/*
+locals {
+  prefix = "fs-cf-sumit-${random_string.naming.result}"
+}
+*/
+
+provider "databricks" {
+  alias    = "mws"
+  host     = "https://accounts.cloud.databricks.com"
+  username = var.databricks_account_username
+  password = var.databricks_account_password
+}
+
 resource "aws_s3_bucket" "root_storage_bucket" {
-  bucket = "${local.prefix}-rootbucket"
+  #bucket = "${local.prefix}-rootbucket"
+  bucket = "${var.prefix}-rootbucket"
   acl    = "private"
   versioning {
     enabled = false
   }
   force_destroy = true
-  tags = merge(var.tags, {
-    Name = "${local.prefix}-rootbucket"
-  })
+
+  tags = var.tags
+
 }
 
 resource "aws_s3_bucket_public_access_block" "root_storage_bucket" {
@@ -29,5 +58,6 @@ resource "databricks_mws_storage_configurations" "this" {
   provider                   = databricks.mws
   account_id                 = var.databricks_account_id
   bucket_name                = aws_s3_bucket.root_storage_bucket.bucket
-  storage_configuration_name = "${local.prefix}-storage"
+  #storage_configuration_name = "${local.prefix}-storage"
+   storage_configuration_name = "${var.prefix}-storage"
 }
