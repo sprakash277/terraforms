@@ -33,21 +33,6 @@ terraform {
 }
 
 
-
-resource "random_string" "naming" {
-  special = false
-  upper   = false
-  length  = 6
-}
-
-locals {
-  prefix = "${var.prefix}-${random_string.naming.result}"
-  databricks_account_username = var.databricks_account_username
-  databricks_account_password  =  var.databricks_account_password
-  databricks_account_id = var.databricks_account_id
-  cross_account_role_arn =  var.cross_account_role_arn
-}
-
 provider "aws" {
   region = var.region
   profile = var.aws_profile_for_Credentials
@@ -59,6 +44,35 @@ provider "databricks" {
   host     = "https://accounts.cloud.databricks.com"
   username = var.databricks_account_username
   password = var.databricks_account_password
+}
+
+
+locals {
+  prefix = "${var.prefix}-${random_string.naming.result}"
+  databricks_account_username = var.databricks_account_username
+  databricks_account_password  =  var.databricks_account_password
+  databricks_account_id = var.databricks_account_id
+  cross_account_role_arn =  var.cross_account_role_arn
+}
+
+
+resource "random_string" "naming" {
+  special = false
+  upper   = false
+  length  = 6
+}
+
+
+resource "databricks_mws_workspaces" "this" {
+  provider        = databricks.mws
+  account_id      = var.databricks_account_id
+  aws_region      = var.region
+  workspace_name  = local.prefix
+  deployment_name = local.prefix
+
+  credentials_id           = module.iam.credentials_id
+  storage_configuration_id = module.root_bucket.credentistorage_configuration_idals_id
+  network_id               = module.vpc.databricks_mws_networks_id
 }
 
 
@@ -106,17 +120,6 @@ module "root_bucket" {
 }
 
 
-resource "databricks_mws_workspaces" "this" {
-  provider        = databricks.mws
-  account_id      = var.databricks_account_id
-  aws_region      = var.region
-  workspace_name  = local.prefix
-  deployment_name = local.prefix
-
-  credentials_id           = module.iam.credentials_id
-  storage_configuration_id = module.root_bucket.credentistorage_configuration_idals_id
-  network_id               = module.vpc.databricks_mws_networks_id
-}
 
 
 
