@@ -34,8 +34,11 @@ export TF_VAR_unity_admin_groups="CHANGE_ME"
 
 cd aws/aws-e2workspace
  -- Initialize terraform
+
 terraform init
+
 --- Apply and deploy clusters
+
 terraform apply
 
 Clean up step
