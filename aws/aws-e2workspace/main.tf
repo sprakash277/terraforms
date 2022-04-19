@@ -22,38 +22,7 @@ export TF_VAR_aws_profile_for_Credentials=$AWS_PROFILE_FOR_CREDENTIALS
 export TF_VAR_aws_region=$AWS_REGION
 */
 
-terraform {
-  required_providers {
-    
-    databricks = {
-      source = "databrickslabs/databricks"
-      version = "0.3.11"
-    }
-  }
-}
 
-
-provider "aws" {
-  region = var.region
-  profile = var.aws_profile_for_Credentials
-}
-
-// initialize provider in "MWS" mode to provision new workspace
-provider "databricks" {
-  alias    = "mws"
-  host     = "https://accounts.cloud.databricks.com"
-  username = var.databricks_account_username
-  password = var.databricks_account_password
-}
-
-
-locals {
-  prefix = "${var.prefix}-${random_string.naming.result}"
-  databricks_account_username = var.databricks_account_username
-  databricks_account_password  =  var.databricks_account_password
-  databricks_account_id = var.databricks_account_id
-  cross_account_role_arn =  var.cross_account_role_arn
-}
 
 
 resource "random_string" "naming" {
@@ -62,13 +31,17 @@ resource "random_string" "naming" {
   length  = 6
 }
 
-
+/*
+data "databricks_current_user" "me" {
+  depends_on = [databricks_mws_workspaces.this]
+}
+*/
 resource "databricks_mws_workspaces" "this" {
   provider        = databricks.mws
   account_id      = var.databricks_account_id
   aws_region      = var.region
-  workspace_name  = local.prefix
-  deployment_name = local.prefix
+  workspace_name  = var.prefix
+  deployment_name = var.prefix
 
   credentials_id           = module.iam.credentials_id
   storage_configuration_id = module.root_bucket.credentistorage_configuration_idals_id
@@ -78,10 +51,10 @@ resource "databricks_mws_workspaces" "this" {
 
 module "vpc" {
   source = "../modules/VPC/create_vpc"
-  databricks_account_id = local.databricks_account_id
-  databricks_account_username = local.databricks_account_username
-  databricks_account_password = local.databricks_account_password
-  cross_account_role_arn = local.cross_account_role_arn
+  databricks_account_id = var.databricks_account_id
+  databricks_account_username = var.databricks_account_username
+  databricks_account_password = var.databricks_account_password
+  cross_account_role_arn = var.cross_account_role_arn
   prefix = "${var.prefix}-${random_string.naming.result}"
 
   providers = {
@@ -92,10 +65,10 @@ module "vpc" {
 
 module "iam" {
   source = "../modules/IAM/use_iam"
-  databricks_account_username = local.databricks_account_username
-  databricks_account_password = local.databricks_account_password
-  cross_account_role_arn = local.cross_account_role_arn
-  databricks_account_id  = local.databricks_account_id
+  databricks_account_username = var.databricks_account_username
+  databricks_account_password = var.databricks_account_password
+  cross_account_role_arn = var.cross_account_role_arn
+  databricks_account_id  = var.databricks_account_id
   tags = var.tags
   prefix = "${var.prefix}-${random_string.naming.result}"
 
@@ -107,9 +80,9 @@ module "iam" {
 
 module "root_bucket" {
   source = "../modules/create_root_bucket/"
-  databricks_account_username = local.databricks_account_username
-  databricks_account_password = local.databricks_account_password
-  databricks_account_id  = local.databricks_account_id
+  databricks_account_username = var.databricks_account_username
+  databricks_account_password = var.databricks_account_password
+  databricks_account_id  = var.databricks_account_id
   tags = var.tags
   prefix = "${var.prefix}-${random_string.naming.result}"
 
@@ -119,6 +92,22 @@ module "root_bucket" {
   
 }
 
+module "uc_metastore" {
+  source = "../modules/uc_metastore"
+  databricks_workspace_ids = databricks_mws_workspaces.this.workspace_id
+  databricks_workspace_host = databricks_mws_workspaces.this.workspace_url
+  databricks_account_password = var.databricks_account_password
+  databricks_account_username = var.databricks_account_username
+  databricks_account_id = var.databricks_account_id
+  unity_admin_groups = var.unity_admin_groups
+  unity_metastore_bucket = var.unity_metastore_bucket
+  unity_metastore_iam = var.unity_metastore_iam
+  //user_id = data.databricks_current_user.me.id
+
+   providers = {
+    aws = aws
+  }
+}
 
 
 

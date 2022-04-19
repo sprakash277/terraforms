@@ -1,11 +1,15 @@
 variable "databricks_account_username" {}
 variable "databricks_account_password" {}
 variable "databricks_account_id" {}
+variable "unity_admin_groups" {}
+variable "unity_metastore_bucket" {}
+variable "unity_metastore_iam" {}
+variable "Owner" {}
 
 variable "cross_account_role_arn" {}
 
 
-variable "aws_profile_for_Credentials" {}
+variable "aws_profile" {}
 
 variable "tags" {
   default = {
@@ -21,5 +25,5 @@ variable "region" {
 }
 
 variable "prefix" {
-  default = "cs-sumit1"
+  type = string
 }

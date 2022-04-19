@@ -3,7 +3,11 @@ terraform {
     
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.11"
+      version = "0.4.8"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~>3.68.0"
     }
   }
 }
@@ -15,7 +19,7 @@ resource "random_string" "naming" {
 
 
 locals {
-  #prefix = "fs-cf-sumit-${random_string.naming.result}"
+  prefix = "fs-cf-sumit-${random_string.naming.result}"
   databricks_account_username = var.databricks_account_username
   databricks_account_password  =  var.databricks_account_password
   databricks_account_id = var.databricks_account_id

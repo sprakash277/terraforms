@@ -3,7 +3,7 @@ terraform {
     
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.11"
+      version = "0.4.8"
     }
   }
 }
@@ -29,10 +29,10 @@ provider "databricks" {
 resource "aws_s3_bucket" "root_storage_bucket" {
   #bucket = "${local.prefix}-rootbucket"
   bucket = "${var.prefix}-rootbucket"
-  acl    = "private"
-  versioning {
-    enabled = false
-  }
+  #acl    = "private"
+#  versioning {
+#    enabled = false
+#  }
   force_destroy = true
 
   tags = var.tags
