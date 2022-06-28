@@ -1,11 +1,12 @@
-az login
-az account set --subscription "REPLACE ME" use the correct Azure Subscription id
-run " terraform init " from the parent folder. init deploys the required libraries and dependencies
-run " terraform validate "
-run " terraform apply "
+Azure Workspace deployment with UC assigment:
+* az login
+* az account set --subscription "REPLACE ME" use the correct Azure Subscription id
+* run " terraform init " from the parent folder. init deploys the required libraries and dependencies
+* run " terraform validate "
+* run " terraform apply "
 
 To destroy the previous work created by terraform 
-run " terraform destroy "
+* run " terraform destroy "
 
 # Provisioning Azure Databricks workspace with a Hub & Spoke firewall for data exfiltration protection
 
