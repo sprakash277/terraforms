@@ -20,15 +20,15 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = ">= 2.26"
+      version = "~>2.92.0"
     }
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.11"
+      version = "~>0.4.0"
     }
     azuread = {
       source = "hashicorp/azuread"
-      version = "2.8.0"
+      version = "~>2.15.0"
     }
 
   }
@@ -83,6 +83,24 @@ module "scim_AAD" {
   }
 
 }
+
+
+module "unity_catalog" {
+  source = "./modules/unity_catalog"
+  workspace_ids = module.create_db_workspace.workspace_id
+  databricks_workspace_host = module.create_db_workspace.databricks_host
+  #host = module.create_db_workspace.databricks_host
+  #token = module.create_pat_token.databricks_token
+  # To add lazy Authentication, Call the  ata.databricks_current_user which has dependency to the child moudule workspace creation.
+  //user_id = data.databricks_current_user.me.id
+  user_id = data.databricks_current_user.me.id
+  providers = {
+
+    databricks = databricks
+  }
+
+}
+
 
 module "sync_repos" {
   source = "./modules/sync_repos"

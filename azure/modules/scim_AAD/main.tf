@@ -3,11 +3,11 @@ terraform {
   required_providers {
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.11"
+      version = "~>0.4.0"
     }
     azuread = {
       source = "hashicorp/azuread"
-      version = "2.8.0"
+      version = "~>2.15.0"
     }
   }
 }
@@ -28,7 +28,7 @@ resource "databricks_group" "this" {
   for_each = data.azuread_group.this
   display_name = each.key
   workspace_access = var.groups[each.key].workspace_access
-  allow_sql_analytics_access = var.groups[each.key].allow_sql_analytics_access
+  //allow_sql_analytics_access = var.groups[each.key].allow_sql_analytics_access
   allow_cluster_create = var.groups[each.key].allow_cluster_create
   allow_instance_pool_create = var.groups[each.key].allow_instance_pool_create
 }

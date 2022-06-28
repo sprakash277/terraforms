@@ -13,7 +13,7 @@ data "external" "me" {
 }
 
 locals {
-  prefix = "sumit_vnet_terraform_adb"
+  prefix = var.adb_workspace_name
   tags = {
     Environment = "Demo"
     Owner       = lookup(data.external.me.result, "name")
@@ -28,7 +28,7 @@ resource "azurerm_resource_group" "this" {
 
 resource "azurerm_databricks_workspace" "this" {
   name                        = "${local.prefix}-workspace"
-  resource_group_name         = "sumit_rg_adb"
+  resource_group_name         =  var.resource_group_name
   location                    = azurerm_resource_group.this.location
   sku                         = "premium"
   managed_resource_group_name = "${local.prefix}-workspace-rg"

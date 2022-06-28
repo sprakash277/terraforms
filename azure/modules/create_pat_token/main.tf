@@ -3,7 +3,7 @@ terraform {
   required_providers {
     databricks = {
       source = "databrickslabs/databricks"
-      version = "0.3.11"
+      version = "~>0.4.0"
     }
   }
 }
@@ -17,6 +17,7 @@ provider "databricks" {
 
 // create PAT token to provision entities within workspace
 resource "databricks_token" "pat" {
+
   provider = databricks.created_workspace
   comment  = "Terraform Provisioning"
   // 100 day token
