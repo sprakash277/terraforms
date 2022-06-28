@@ -1,3 +1,12 @@
+az login
+az account set --subscription "REPLACE ME" use the correct Azure Subscription id
+run " terraform init " from the parent folder. init deploys the required libraries and dependencies
+run " terraform validate "
+run " terraform apply "
+
+To destroy the previous work created by terraform 
+run " terraform destroy "
+
 # Provisioning Azure Databricks workspace with a Hub & Spoke firewall for data exfiltration protection
 
 This template provides an example deployment of: Hub-Spoke networking with egress firewall to control all outbound traffic from Databricks subnets. Details are described in: https://databricks.com/blog/2020/03/27/data-exfiltration-protection-with-azure-databricks.html
