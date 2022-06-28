@@ -15,7 +15,7 @@ resource "databricks_catalog" "catalog" {
   properties = {
     purpose = "Demo"
   }
-  depends_on = [azurerm_databricks_workspace.this]
+  depends_on = [databricks_metastore_assignment.this]
 }
 
 resource "databricks_schema" "things" {
