@@ -1,9 +1,9 @@
 Azure Workspace deployment with UC assigment:
-* az login
-* az account set --subscription "REPLACE ME" use the correct Azure Subscription id
-* run " terraform init " from the parent folder. init deploys the required libraries and dependencies
-* run " terraform validate "
-* run " terraform apply "
+* STEP 1 :  az login
+* STEP 2 :  az account set --subscription "REPLACE ME" :- use the correct Azure Subscription id
+* STEP 3 :  run " terraform init " from the parent folder. init deploys the required libraries and dependencies
+* STEP 4 :  run " terraform validate "
+* STEP 5 :  run " terraform apply "
 
 To destroy the previous work created by terraform 
 * run " terraform destroy "
