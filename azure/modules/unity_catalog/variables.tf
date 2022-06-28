@@ -19,13 +19,11 @@ variable "reuse_rg" {
 variable "tenant_id" {
   description = "Enter your tenant id from Azure Portal"
   type        = string
-  default = "9f37a392-f0ae-4280-9796-f1864a10effc"
 }
 
 variable "subscription_id" {
   description = "Enter your subscription id from Azure Portal"
   type        = string
-  default = "3f2e4d32-8e8d-46d6-82bc-5bb8d962328b"
 }
 
 variable "prefix" {
