@@ -29,3 +29,10 @@ resource "databricks_schema" "things" {
     kind = "various"
   }
 }
+
+
+output "catalog_name" {
+  // The workspace URL which is of the format 'adb-{workspaceId}.{random}.azuredatabricks.net'
+  // this is not named as DATABRICKS_HOST, because it affect authentication
+  value = databricks_catalog.catalog.name
+}
