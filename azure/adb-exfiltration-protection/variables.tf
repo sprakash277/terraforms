@@ -19,23 +19,19 @@ variable "rglocation" {
 }
 
 variable "metastoreip" {
-  type = string
+  type = list(any)
 }
 
 variable "sccip-1" {
-  type = string
+  type    = string
 }
+
 
 variable "sccip-2" {
-  type = string
+  type    = string
 }
-
-variable "webappip-1" {
-  type = string
-}
-
-variable "webappip-2" {
-  type = string
+variable "webappip" {
+  type = list(any)
 }
 
 variable "dbfs_prefix" {

@@ -40,9 +40,8 @@ resource "azurerm_firewall_network_rule_collection" "adbfnetwork" {
       "3306",
     ]
 
-    destination_addresses = [
-      var.metastoreip,
-    ]
+    destination_addresses =  var.metastoreip
+   
 
     protocols = [
       "TCP",
@@ -61,9 +60,7 @@ resource "azurerm_firewall_network_rule_collection" "adbfnetwork" {
       "443",
     ]
 
-    destination_addresses = [
-      var.webappip-1,var.webappip-2
-    ]
+    destination_addresses = var.webappip
 
     protocols = [
       "TCP",

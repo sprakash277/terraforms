@@ -17,7 +17,6 @@ provider "databricks" {
 
 // create PAT token to provision entities within workspace
 resource "databricks_token" "pat" {
-
   provider = databricks.created_workspace
   comment  = "Terraform Provisioning"
   // 100 day token
