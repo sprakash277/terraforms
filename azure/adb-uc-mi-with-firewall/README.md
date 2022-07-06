@@ -1,3 +1,7 @@
+* Install Azure CLI -> https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos
+* Install terraform -> https://learn.hashicorp.com/tutorials/terraform/install-cli
+
+
 Azure Workspace deployment with UC assigment:
 * STEP 1 :  az login
 * STEP 2 :  az account set --subscription "REPLACE ME" :- use the correct Azure Subscription id
