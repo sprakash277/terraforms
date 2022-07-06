@@ -63,3 +63,11 @@ variable "schema_name" {
 variable "metastore_storage_name" {
   type    = string
 }
+
+variable "metastore_rg_name" {
+  type    = string
+}
+
+variable "metastore_storage_id" {
+  type    = string
+}

@@ -42,7 +42,7 @@ resource "azurerm_storage_account" "pvtendpointaccess" {
 }
 
 
-
+/*
 resource "azurerm_storage_account_network_rules" "svcendpointaccess" {
 
   storage_account_id         = azurerm_storage_account.svcendpointaccess.id
@@ -51,6 +51,23 @@ resource "azurerm_storage_account_network_rules" "svcendpointaccess" {
   depends_on = [azurerm_subnet.public]
  # bypass                     = ["Metrics"]
 }
+*/
+
+// Create Resource with Metastore  - Firewall enabled. We need to attach the vnet network created as part of deployment
+
+
+
+/*
+resource "azurerm_storage_account_network_rules" "accessfirewallenabledmetastore_nwrk" {
+
+  depends_on = [azurerm_subnet.public,azurerm_subnet.private]
+  storage_account_id = var.metastore_storage_name
+  virtual_network_subnet_ids = [azurerm_subnet.public.id,azurerm_subnet.private.id]
+  default_action             = "Deny"
+  
+}
+*/
+
 
 
 resource "azurerm_storage_account" "diagnosticlog" {
