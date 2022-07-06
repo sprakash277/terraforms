@@ -16,21 +16,23 @@ export TF_VAR_subscription_id=$AZURE_SUBSCRIPTION_ID
 
 export TF_VAR_github_token=$GITHUB_TOKEN
 
+* Install Azure CLI -> https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-macos
+* Install terraform -> https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 
-1. az login 
+* 1. az login 
 
-        i. Alternatively , we can Authenticate using the Service Prinipal as mentioned here - https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-service-principal
+        * i. Alternatively , we can Authenticate using the Service Prinipal as mentioned here - https://github.com/ databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-service-principal
      
-        ii. Or Using Azure MSI , as mentioned here  - https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-msi
+        * ii. Or Using Azure MSI , as mentioned here  - https://github.com/databrickslabs/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-azure-msi
      
-2. az account set --subscription "REPLACE ME"
+* 2. az account set --subscription "REPLACE ME"
     use the correct Azure Subscription id
-4. Set the terraform path in the $PATH
-5. run " terraform init " from the parent folder. init deploys the required libraries and dependencies
-6. run " terraform validate " 
-7. run " terraform apply "
-8. To destroy the previous work created by terraform , run " terraform destroy "
+* 3. Set the terraform path in the $PATH
+* 4. run " terraform init " from the parent folder. init deploys the required libraries and dependencies
+* 5. run " terraform validate " 
+* 6. run " terraform apply "
+* 7. To destroy the previous work created by terraform , run " terraform destroy "
 
 
 # Azure AD Provider
